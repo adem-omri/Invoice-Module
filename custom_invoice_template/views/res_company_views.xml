@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Server action: open the professional report on a sample invoice -->
+    <record id="action_preview_invoice_template" model="ir.actions.server">
+        <field name="name">Preview Invoice Template</field>
+        <field name="model_id" ref="base.model_res_company"/>
+        <field name="binding_model_id" ref="base.model_res_company"/>
+        <field name="state">code</field>
+        <field name="code">action = model._action_preview_invoice_template()</field>
+    </record>
+
+    <record id="view_company_form_invoice_template" model="ir.ui.view">
+        <field name="name">res.company.form.invoice.template</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='general_info']" position="after">
+                <page string="Invoice Template" name="invoice_template">
+                    <div class="oe_button_box">
+                        <button name="%(custom_invoice_template.action_preview_invoice_template)d"
+                                type="action" class="btn btn-primary" icon="fa-eye">
+                            <span>Live Preview</span>
+                        </button>
+                    </div>
+                    <group>
+                        <group string="Branding">
+                            <field name="invoice_header_color" widget="color"/>
+                            <field name="invoice_secondary_color" widget="color"/>
+                            <field name="invoice_accent_color" widget="color"/>
+                            <field name="invoice_tagline"/>
+                            <field name="invoice_logo_width"/>
+                            <field name="invoice_footer_text"/>
+                        </group>
+                        <group string="Bank Details">
+                            <field name="invoice_bank_name"/>
+                            <field name="invoice_bank_account"/>
+                            <field name="invoice_bank_iban"/>
+                            <field name="invoice_bank_swift"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Layout Options">
+                            <field name="invoice_show_qr"/>
+                            <field name="invoice_show_stamp_area"/>
+                            <field name="invoice_show_bank_details"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

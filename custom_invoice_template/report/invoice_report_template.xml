@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================================= -->
+    <!-- Inline stylesheet.                                            -->
+    <!-- wkhtmltopdf does not reliably apply our custom classes when    -->
+    <!-- they are appended to the large async report asset bundle, so   -->
+    <!-- the stylesheet is embedded directly in every rendered region   -->
+    <!-- (header / article / footer are separate wkhtmltopdf documents).-->
+    <!-- This is kept in sync with static/src/css/invoice_style.css      -->
+    <!-- which still drives the on-screen (portal/HTML) rendering.       -->
+    <!-- ============================================================= -->
+    <template id="report_custom_invoice_styles">
+        <style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700;800&amp;display=swap');
+.cit-root, .cit-region { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; color: #2b2b3a; font-size: 11px; line-height: 1.45; }
+.cit-root { padding: 4px 2px 0 2px; }
+.cit-root h1, .cit-root h2, .cit-root h3, .cit-identity-title, .cit-party-title, .cit-company-name, .cit-total-grand .cit-total-label, .cit-note-title, .cit-bank-title { font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif; }
+.cit-text-center { text-align: center; }
+.cit-text-end { text-align: right; }
+.cit-header-band { width: 100%; padding: 14px 16px; color: #ffffff; }
+.cit-header-table { width: 100%; border-collapse: collapse; }
+.cit-header-logo { vertical-align: middle; width: 35%; padding-right: 14px; }
+.cit-header-logo img { display: block; background: #ffffff; padding: 6px; border-radius: 6px; }
+.cit-header-info { vertical-align: middle; text-align: right; color: #ffffff; }
+.cit-company-name { font-size: 20px; font-weight: 700; letter-spacing: 0.4px; color: #ffffff; }
+.cit-company-tagline { font-size: 11px; font-weight: 300; opacity: 0.85; margin-bottom: 4px; color: #e8e8f0; }
+.cit-company-meta { font-size: 9.5px; opacity: 0.9; color: #e8e8f0; }
+.cit-header-divider { width: 100%; height: 4px; }
+.cit-identity { width: 100%; border-collapse: collapse; margin: 6px 0 14px 0; }
+.cit-identity-title-cell { vertical-align: middle; }
+.cit-identity-title { font-size: 38px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+.cit-identity-box-cell { vertical-align: middle; width: 46%; }
+.cit-id-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; }
+.cit-id-label, .cit-id-value { background: #fafafd; border-top: 1px solid #e3e3ec; border-bottom: 1px solid #e3e3ec; padding: 5px 8px; }
+.cit-id-label { border-left: 1px solid #e3e3ec; border-top-left-radius: 4px; border-bottom-left-radius: 4px; text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: 0.6px; color: #8a8a9a; font-weight: 600; white-space: nowrap; }
+.cit-id-value { border-right: 1px solid #e3e3ec; border-top-right-radius: 4px; border-bottom-right-radius: 4px; text-align: right; font-size: 11px; font-weight: 600; color: #2b2b3a; }
+.cit-status-badge { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 9px; font-weight: 700; letter-spacing: 0.6px; color: #ffffff; text-transform: uppercase; }
+.cit-badge-paid { background-color: #1a9d54; }
+.cit-badge-posted { background-color: #e08a1e; }
+.cit-badge-draft { background-color: #8a8a9a; }
+.cit-badge-cancel { background-color: #b00020; }
+.cit-parties { display: table; width: 100%; margin-bottom: 14px; table-layout: fixed; border-spacing: 8px 0; }
+.cit-party { display: table-cell; width: 50%; vertical-align: top; padding: 10px 12px; background: #fafafd; border: 1px solid #ececf3; border-radius: 6px; }
+.cit-party-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.cit-party-name { font-size: 13px; font-weight: 700; color: #2b2b3a; margin-bottom: 2px; }
+.cit-party-line { font-size: 10px; color: #555566; }
+.cit-items { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 10px; }
+.cit-items thead th { color: #ffffff; text-align: left; padding: 8px 8px; font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.cit-items thead th.cit-col-qty, .cit-items thead th.cit-col-price, .cit-items thead th.cit-col-disc, .cit-items thead th.cit-col-sub { text-align: right; }
+.cit-items thead th.cit-col-num, .cit-items thead th.cit-col-tax { text-align: center; }
+.cit-items tbody td { padding: 7px 8px; border-bottom: 1px solid #ececf3; vertical-align: top; }
+.cit-item-row { background: #ffffff; }
+.cit-row-alt { background: #f6f6fb; }
+.cit-col-num { width: 4%; color: #8a8a9a; }
+.cit-col-desc { width: 40%; }
+.cit-col-qty { width: 11%; }
+.cit-col-price { width: 14%; }
+.cit-col-tax { width: 11%; }
+.cit-col-disc { width: 9%; }
+.cit-col-sub { width: 16%; font-weight: 600; }
+.cit-item-name { font-weight: 500; color: #2b2b3a; white-space: pre-line; }
+.cit-item-ref { font-size: 8.5px; color: #9a9aa8; margin-top: 2px; }
+.cit-line-section td { background: #ececf3; font-weight: 700; text-transform: uppercase; font-size: 9.5px; letter-spacing: 0.5px; }
+.cit-line-note td { font-style: italic; color: #777788; }
+.cit-totals-wrap { width: 100%; overflow: hidden; margin-bottom: 6px; }
+.cit-totals { float: right; width: 46%; }
+.cit-total-row { display: table; width: 100%; padding: 4px 10px; font-size: 11px; }
+.cit-total-label { display: table-cell; text-align: left; color: #555566; }
+.cit-total-value { display: table-cell; text-align: right; font-weight: 600; color: #2b2b3a; }
+.cit-total-grand { border-top: 2px solid; border-bottom: 2px solid; margin-top: 4px; padding: 7px 10px; }
+.cit-total-grand .cit-total-label { font-size: 14px; font-weight: 700; letter-spacing: 0.5px; }
+.cit-total-grand .cit-total-value { font-size: 16px; font-weight: 800; }
+.cit-amount-due { background: #fff6ec; border-radius: 4px; margin-top: 4px; }
+.cit-amount-due .cit-total-value { color: #e08a1e; }
+.cit-amount-words { clear: both; margin: 6px 0 12px 0; padding: 8px 12px; background: #fafafd; border-left: 3px solid #ccccdd; border-radius: 4px; font-size: 10px; }
+.cit-words-label { color: #8a8a9a; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 9px; }
+.cit-words-value { font-style: italic; color: #2b2b3a; }
+.cit-note { margin-bottom: 12px; padding: 8px 12px; background: #fafafd; border-radius: 6px; border: 1px solid #ececf3; }
+.cit-note-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 3px; }
+.cit-note-body { font-size: 10px; color: #555566; }
+.cit-info-row { display: table; width: 100%; margin-bottom: 14px; border-spacing: 12px 0; }
+.cit-bank { display: table-cell; width: 65%; vertical-align: top; padding: 10px 12px; background: #fafafd; border: 1px solid #ececf3; border-radius: 6px; }
+.cit-bank-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; }
+.cit-bank-line { display: table; width: 100%; font-size: 10px; margin-bottom: 2px; }
+.cit-bank-label { display: table-cell; width: 90px; color: #8a8a9a; font-weight: 600; }
+.cit-bank-value { display: table-cell; color: #2b2b3a; font-weight: 500; }
+.cit-qr { display: table-cell; width: 35%; vertical-align: top; text-align: center; padding-left: 12px; }
+.cit-qr-img { width: 96px; height: 96px; }
+.cit-qr-label { font-size: 8.5px; color: #8a8a9a; margin-top: 3px; }
+.cit-stamp-row { display: table; width: 100%; margin-top: 6px; border-spacing: 12px 0; }
+.cit-stamp-box { display: table-cell; width: 50%; text-align: center; }
+.cit-stamp-space { height: 56px; border: 1px dashed #b8b8c8; border-radius: 6px; }
+.cit-stamp-label { margin-top: 4px; font-size: 9.5px; color: #8a8a9a; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.cit-footer-topline { width: 100%; height: 3px; }
+.cit-footer-band { width: 100%; color: #ffffff; padding: 8px 16px; display: table; }
+.cit-footer-text { display: table-cell; width: 80%; vertical-align: middle; text-align: center; font-size: 9.5px; color: #e8e8f0; }
+.cit-footer-page { display: table-cell; width: 20%; vertical-align: middle; text-align: right; font-size: 9px; color: #e8e8f0; }
+.cit-style-classic .cit-identity-title { font-family: 'Georgia', 'Times New Roman', serif; letter-spacing: 1px; }
+.cit-style-classic .cit-items thead th { text-transform: none; }
+.cit-style-classic .cit-party, .cit-style-classic .cit-bank, .cit-style-classic .cit-note { background: #ffffff; }
+.cit-style-minimal .cit-party, .cit-style-minimal .cit-bank, .cit-style-minimal .cit-note, .cit-style-minimal .cit-id-row, .cit-style-minimal .cit-amount-words { background: #ffffff; border: none; }
+.cit-style-minimal .cit-id-row { border-bottom: 1px solid #ececf3; border-radius: 0; }
+.cit-style-minimal .cit-row-alt { background: #ffffff; }
+.cit-style-minimal .cit-items tbody td { border-bottom: 1px solid #f0f0f5; }
+.cit-style-minimal .cit-identity-title { font-weight: 600; letter-spacing: 4px; }
+        </style>
+    </template>
+
+    <!-- ============================================================= -->
+    <!-- Per-document professional invoice document -->
+    <!-- ============================================================= -->
+    <template id="report_custom_invoice_document">
+        <t t-set="company" t-value="o.company_id"/>
+        <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang or o.env.lang)"/>
+        <t t-set="is_credit" t-value="o.is_credit_note()"/>
+        <t t-set="header_color" t-value="company.invoice_header_color or '#1a1a2e'"/>
+        <t t-set="secondary_color" t-value="company.invoice_secondary_color or '#16213e'"/>
+        <t t-set="accent_color" t-value="o.get_header_accent_color()"/>
+        <t t-set="logo_width" t-value="company.invoice_logo_width or 120"/>
+        <t t-set="style" t-value="o.invoice_template_style or 'modern'"/>
+        <t t-set="status_vals" t-value="o.get_status_label()"/>
+        <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids if l.display_type == 'product')"/>
+        <t t-set="currency" t-value="o.currency_id or company.currency_id"/>
+
+        <!-- ===================== ARTICLE / BODY ===================== -->
+        <!-- The header band lives at the top of the article (normal flow)   -->
+        <!-- so it never overlaps the body; only the footer band repeats via  -->
+        <!-- the wkhtmltopdf footer region (for the Page X of Y counter).     -->
+        <div class="article cit-root" t-attf-class="article cit-root cit-style-#{style}"
+             t-att-data-oe-model="o and o._name"
+             t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="custom_invoice_template.report_custom_invoice_styles"/>
+
+            <!-- Header band -->
+            <div class="cit-header-band" t-attf-style="background-color:{{ header_color }};">
+                <table class="cit-header-table" t-attf-class="cit-header-table cit-style-#{style}">
+                    <tr>
+                        <td class="cit-header-logo">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                                 t-attf-style="width:{{ logo_width }}px; max-height:90px;" alt="Logo"/>
+                        </td>
+                        <td class="cit-header-info">
+                            <div class="cit-company-name" t-esc="company.name"/>
+                            <div t-if="company.invoice_tagline" class="cit-company-tagline" t-esc="company.invoice_tagline"/>
+                            <div class="cit-company-meta">
+                                <span t-if="company.street" t-esc="company.street"/>
+                                <span t-if="company.street2">, <t t-esc="company.street2"/></span>
+                                <span t-if="company.city">, <t t-esc="company.city"/></span>
+                                <span t-if="company.zip"> <t t-esc="company.zip"/></span>
+                                <span t-if="company.country_id">, <t t-esc="company.country_id.name"/></span>
+                            </div>
+                            <div class="cit-company-meta">
+                                <span t-if="company.phone">Tel: <t t-esc="company.phone"/></span>
+                                <span t-if="company.email"> &#8226; <t t-esc="company.email"/></span>
+                                <span t-if="company.website"> &#8226; <t t-esc="company.website"/></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="cit-header-divider" t-attf-style="background-color:{{ accent_color }};"/>
+
+            <!-- Invoice identity -->
+            <table class="cit-identity">
+                <tr>
+                    <td class="cit-identity-title-cell">
+                        <div class="cit-identity-title" t-attf-style="color:{{ accent_color }};">
+                            <t t-esc="o.get_document_title()"/>
+                        </div>
+                    </td>
+                    <td class="cit-identity-box-cell">
+                        <table class="cit-id-table">
+                            <tr class="cit-id-row">
+                                <td class="cit-id-label">Invoice No.</td>
+                                <td class="cit-id-value"><t t-esc="o.name if o.name and o.name != '/' else 'Draft'"/></td>
+                            </tr>
+                            <tr class="cit-id-row">
+                                <td class="cit-id-label">Invoice Date</td>
+                                <td class="cit-id-value"><span t-field="o.invoice_date" t-options="{'widget': 'date'}"/></td>
+                            </tr>
+                            <tr class="cit-id-row" t-if="o.invoice_date_due">
+                                <td class="cit-id-label">Due Date</td>
+                                <td class="cit-id-value"><span t-field="o.invoice_date_due" t-options="{'widget': 'date'}"/></td>
+                            </tr>
+                            <tr class="cit-id-row">
+                                <td class="cit-id-label">Status</td>
+                                <td class="cit-id-value"><span t-attf-class="cit-status-badge #{status_vals[1]}"><t t-esc="status_vals[0]"/></span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Client info -->
+            <div class="cit-parties">
+                <div class="cit-party cit-party-left">
+                    <div class="cit-party-title" t-attf-style="color:{{ accent_color }};">Bill To</div>
+                    <div class="cit-party-name" t-esc="o.partner_id.name"/>
+                    <div class="cit-party-line">
+                        <span t-field="o.partner_id"
+                              t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                    </div>
+                    <div class="cit-party-line" t-if="o.partner_id.phone">Tel: <t t-esc="o.partner_id.phone"/></div>
+                    <div class="cit-party-line" t-if="o.partner_id.email"><t t-esc="o.partner_id.email"/></div>
+                    <div class="cit-party-line" t-if="o.partner_id.vat">
+                        <t t-if="company.account_fiscal_country_id.vat_label" t-esc="company.account_fiscal_country_id.vat_label"/>
+                        <t t-else="">Tax ID</t>: <t t-esc="o.partner_id.vat"/>
+                    </div>
+                </div>
+                <div class="cit-party cit-party-right">
+                    <t t-if="o.partner_shipping_id and o.partner_shipping_id != o.partner_id">
+                        <div class="cit-party-title" t-attf-style="color:{{ accent_color }};">Ship To</div>
+                        <div class="cit-party-name" t-esc="o.partner_shipping_id.name"/>
+                        <div class="cit-party-line">
+                            <span t-field="o.partner_shipping_id"
+                                  t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                        </div>
+                        <div class="cit-party-line" t-if="o.partner_shipping_id.phone">Tel: <t t-esc="o.partner_shipping_id.phone"/></div>
+                    </t>
+                    <t t-else="">
+                        <div class="cit-party-title" t-attf-style="color:{{ accent_color }};">From</div>
+                        <div class="cit-party-name" t-esc="company.name"/>
+                        <div class="cit-party-line">
+                            <span t-field="company.partner_id"
+                                  t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                        </div>
+                        <div class="cit-party-line" t-if="company.vat">
+                            <t t-if="company.account_fiscal_country_id.vat_label" t-esc="company.account_fiscal_country_id.vat_label"/>
+                            <t t-else="">Tax ID</t>: <t t-esc="company.vat"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+
+            <!-- Items table -->
+            <table class="cit-items">
+                <thead>
+                    <tr t-attf-style="background-color:{{ secondary_color }};">
+                        <th class="cit-col-num">#</th>
+                        <th class="cit-col-desc">Description</th>
+                        <th class="cit-col-qty">Qty</th>
+                        <th class="cit-col-price">Unit Price</th>
+                        <th class="cit-col-tax">Tax</th>
+                        <th t-if="display_discount" class="cit-col-disc">Disc.</th>
+                        <th class="cit-col-sub">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="line_index" t-value="0"/>
+                    <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date or l.move_id.invoice_date, l.id))"/>
+                    <t t-foreach="lines" t-as="line">
+                        <t t-if="line.display_type == 'product'">
+                            <t t-set="line_index" t-value="line_index + 1"/>
+                            <tr t-attf-class="cit-item-row #{'cit-row-alt' if line_index % 2 == 0 else ''}">
+                                <td class="cit-col-num text-center"><t t-esc="line_index"/></td>
+                                <td class="cit-col-desc">
+                                    <span class="cit-item-name" t-field="line.name" t-options="{'widget': 'text'}"/>
+                                    <div t-if="line.product_id.default_code" class="cit-item-ref">
+                                        Ref: <t t-esc="line.product_id.default_code"/>
+                                    </div>
+                                </td>
+                                <td class="cit-col-qty text-end">
+                                    <span t-field="line.quantity"/>
+                                    <span t-field="line.product_uom_id" groups="uom.group_uom"/>
+                                </td>
+                                <td class="cit-col-price text-end">
+                                    <span t-field="line.price_unit"
+                                          t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                </td>
+                                <td class="cit-col-tax text-center">
+                                    <t t-if="line.tax_ids">
+                                        <t t-esc="', '.join(line.tax_ids.mapped('name'))"/>
+                                    </t>
+                                    <t t-else="">&#8212;</t>
+                                </td>
+                                <td t-if="display_discount" class="cit-col-disc text-end">
+                                    <t t-if="line.discount"><t t-esc="'%.2f' % line.discount"/>%</t>
+                                    <t t-else="">&#8212;</t>
+                                </td>
+                                <td class="cit-col-sub text-end">
+                                    <span t-field="line.price_subtotal"
+                                          t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-elif="line.display_type == 'line_section'">
+                            <tr class="cit-line-section">
+                                <td colspan="7"><span t-field="line.name"/></td>
+                            </tr>
+                        </t>
+                        <t t-elif="line.display_type == 'line_note'">
+                            <tr class="cit-line-note">
+                                <td colspan="7"><span t-field="line.name" t-options="{'widget': 'text'}"/></td>
+                            </tr>
+                        </t>
+                    </t>
+                </tbody>
+            </table>
+
+            <!-- Totals -->
+            <div class="cit-totals-wrap">
+                <div class="cit-totals">
+                    <div class="cit-total-row">
+                        <span class="cit-total-label">Subtotal</span>
+                        <span class="cit-total-value">
+                            <span t-field="o.amount_untaxed"
+                                  t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                        </span>
+                    </div>
+                    <t t-if="o.tax_totals">
+                        <t t-foreach="o.tax_totals.get('groups_by_subtotal', {}).items()" t-as="subtotal_group">
+                            <t t-foreach="subtotal_group[1]" t-as="tax_group">
+                                <div class="cit-total-row">
+                                    <span class="cit-total-label" t-esc="tax_group['tax_group_name']"/>
+                                    <span class="cit-total-value" t-esc="tax_group['formatted_tax_group_amount']"/>
+                                </div>
+                            </t>
+                        </t>
+                    </t>
+                    <div class="cit-total-row" t-if="not o.tax_totals">
+                        <span class="cit-total-label">Taxes</span>
+                        <span class="cit-total-value">
+                            <span t-field="o.amount_tax"
+                                  t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                        </span>
+                    </div>
+                    <div class="cit-total-row cit-total-grand" t-attf-style="border-color:{{ accent_color }};">
+                        <span class="cit-total-label" t-attf-style="color:{{ accent_color }};">TOTAL</span>
+                        <span class="cit-total-value" t-attf-style="color:{{ accent_color }};">
+                            <span t-field="o.amount_total"
+                                  t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                        </span>
+                    </div>
+                    <div class="cit-total-row cit-amount-due" t-if="o.amount_residual and o.state == 'posted'">
+                        <span class="cit-total-label">Amount Due</span>
+                        <span class="cit-total-value">
+                            <span t-field="o.amount_residual"
+                                  t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cit-amount-words">
+                <span class="cit-words-label">Amount in words:</span>
+                <span class="cit-words-value"><t t-esc="o.get_amount_in_words()"/></span>
+            </div>
+
+            <!-- Custom note -->
+            <div class="cit-note" t-if="o.invoice_note_custom">
+                <div class="cit-note-title" t-attf-style="color:{{ accent_color }};">Note</div>
+                <div class="cit-note-body"><span t-field="o.invoice_note_custom" t-options="{'widget': 'text'}"/></div>
+            </div>
+            <div class="cit-note" t-if="o.narration">
+                <div class="cit-note-body"><span t-field="o.narration"/></div>
+            </div>
+
+            <!-- Bank / QR row -->
+            <div class="cit-info-row" t-if="company.invoice_show_bank_details or company.invoice_show_qr">
+                <div class="cit-bank" t-if="company.invoice_show_bank_details">
+                    <div class="cit-bank-title" t-attf-style="color:{{ accent_color }};">Bank Details</div>
+                    <div class="cit-bank-line" t-if="company.invoice_bank_name">
+                        <span class="cit-bank-label">Bank</span>
+                        <span class="cit-bank-value" t-esc="company.invoice_bank_name"/>
+                    </div>
+                    <div class="cit-bank-line" t-if="company.invoice_bank_account">
+                        <span class="cit-bank-label">Account</span>
+                        <span class="cit-bank-value" t-esc="company.invoice_bank_account"/>
+                    </div>
+                    <div class="cit-bank-line" t-if="company.invoice_bank_iban">
+                        <span class="cit-bank-label">IBAN</span>
+                        <span class="cit-bank-value" t-esc="company.invoice_bank_iban"/>
+                    </div>
+                    <div class="cit-bank-line" t-if="company.invoice_bank_swift">
+                        <span class="cit-bank-label">SWIFT/BIC</span>
+                        <span class="cit-bank-value" t-esc="company.invoice_bank_swift"/>
+                    </div>
+                </div>
+                <t t-if="company.invoice_show_qr">
+                    <t t-set="qr_data" t-value="o.get_qr_code_base64()"/>
+                    <div class="cit-qr" t-if="qr_data">
+                        <img t-attf-src="data:image/png;base64,#{qr_data}" class="cit-qr-img" alt="QR Code"/>
+                        <div class="cit-qr-label">Scan to pay or view online</div>
+                    </div>
+                </t>
+            </div>
+
+            <!-- Stamp / signature -->
+            <div class="cit-stamp-row" t-if="company.invoice_show_stamp_area">
+                <div class="cit-stamp-box">
+                    <div class="cit-stamp-space"/>
+                    <div class="cit-stamp-label">Authorized Signature</div>
+                </div>
+                <div class="cit-stamp-box">
+                    <div class="cit-stamp-space"/>
+                    <div class="cit-stamp-label">Company Stamp</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== FOOTER BAND ===================== -->
+        <div class="footer cit-region">
+            <t t-call="custom_invoice_template.report_custom_invoice_styles"/>
+            <div class="cit-footer-topline" t-attf-style="background-color:{{ accent_color }};"/>
+            <div class="cit-footer-band" t-attf-style="background-color:{{ header_color }};">
+                <div class="cit-footer-text">
+                    <t t-if="company.invoice_footer_text"><span t-field="company.invoice_footer_text"/></t>
+                    <t t-else=""><span t-esc="company.name"/></t>
+                </div>
+                <div class="cit-footer-page">
+                    Page <span class="page"/> of <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ============================================================= -->
+    <!-- Report entry point -->
+    <!-- ============================================================= -->
+    <template id="report_custom_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="custom_invoice_template.report_custom_invoice_document"/>
+            </t>
+        </t>
+    </template>
+</odoo>

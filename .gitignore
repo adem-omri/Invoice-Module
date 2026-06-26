@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+
+# Odoo / editor
+*.log
+.idea/
+.vscode/
+*.swp
+.DS_Store

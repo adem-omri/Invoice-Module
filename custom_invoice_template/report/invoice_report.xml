@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Professional invoice report action.
+         Bound to account.move so it appears in the Print menu, and also
+         exposed as a dedicated "Print Professional Invoice" action. -->
+    <record id="action_report_custom_invoice" model="ir.actions.report">
+        <field name="name">Professional Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_invoice_template.report_custom_invoice</field>
+        <field name="report_file">custom_invoice_template.report_custom_invoice</field>
+        <field name="print_report_name">'Invoice - %s' % (object.name or '').replace('/', '_')</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_custom_invoice"/>
+    </record>
+
+    <!-- Dedicated, explicitly-named action shown in the action (cog) menu -->
+    <record id="action_print_professional_invoice" model="ir.actions.report">
+        <field name="name">Print Professional Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_invoice_template.report_custom_invoice</field>
+        <field name="report_file">custom_invoice_template.report_custom_invoice</field>
+        <field name="print_report_name">'Invoice - %s' % (object.name or '').replace('/', '_')</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_custom_invoice"/>
+    </record>
+</odoo>

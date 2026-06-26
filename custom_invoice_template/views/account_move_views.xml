@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_custom_invoice" model="ir.ui.view">
+        <field name="name">account.move.form.custom.invoice</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='narration']" position="before">
+                <group name="custom_invoice_template_group" string="Professional Invoice"
+                        attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}">
+                    <field name="invoice_template_style"/>
+                    <field name="invoice_note_custom" placeholder="Note printed on the professional invoice..."/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Window action opening the current company on its Invoice Template tab -->
+    <record id="action_company_invoice_template" model="ir.actions.act_window">
+        <field name="name">Invoice Template</field>
+        <field name="res_model">res.company</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{'form_view_initial_mode': 'edit'}</field>
+    </record>
+
+    <!-- Menu under Accounting > Configuration -->
+    <menuitem id="menu_custom_invoice_template"
+              name="Invoice Template"
+              parent="account.menu_finance_configuration"
+              action="action_company_invoice_template"
+              sequence="50"
+              groups="account.group_account_manager"/>
+</odoo>
